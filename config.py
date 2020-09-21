@@ -1,10 +1,10 @@
 import os
-from decouple import config
+# from decouple import config
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config(object):
-    print(config('DATABASE_URL'))
     DEBUG = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SECRET_KEY = os.urandom(24)
-    SQLALCHEMY_DATABASE_URI = config('DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    # SQLALCHEMY_DATABASE_URI = config('DATABASE_URL')
