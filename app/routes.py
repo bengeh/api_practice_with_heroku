@@ -13,6 +13,7 @@ print("inside routes....")
 print(Base)
 print(Base.classes)
 Accounts = Base.classes.account
+Posts = Base.classes.posts
 session = Session(engine)
 metadata = MetaData(engine)
 
