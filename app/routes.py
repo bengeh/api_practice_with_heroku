@@ -62,8 +62,9 @@ def get_one_post():
     print("got the post...")
     print(post)
     if post is not None:
-        
-        return jsonify(post)
+        data = {'post': post}
+        resp = Response(json.dumps(data), status=200, mimetype="application/json")
+        return resp
     else:
         return jsonify({"error": True})
 
