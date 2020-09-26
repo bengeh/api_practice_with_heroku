@@ -13,7 +13,9 @@ print("inside routes....")
 print(Base)
 print(Base.classes)
 Accounts = Base.classes.account
+Posts = Base.classes.posts
 print(Accounts)
+print(Posts)
 session = Session(engine)
 metadata = MetaData(engine)
 
@@ -55,8 +57,9 @@ def create_post():
 @application.route('/get_one_post', methods=["GET", "POST"])
 def get_one_post():
     post_name = request.args.get('post_name')
-    posts = Table('posts', metadata, autoload=True)
-    post = session.query(posts).filter(or_(posts.post_name == post_name)).first()
+    post = session.query(Posts).filter(or_(Posts.post_name == post_name)).first()
+    print("got the post...")
+    print(post)
     if post is not None:
         return post
     else:
