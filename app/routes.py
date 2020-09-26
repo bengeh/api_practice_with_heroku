@@ -5,6 +5,7 @@ from flask import request, jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy.orm import Session
 from flask_cors import CORS, cross_origin
+import json
 
 CORS(application, support_credentials=True)
 Base = automap_base()
@@ -61,7 +62,8 @@ def get_one_post():
     print("got the post...")
     print(post)
     if post is not None:
-        return post
+        postRes = json.dumps(post)
+        return postRes
     else:
         return jsonify({"error": True})
 
