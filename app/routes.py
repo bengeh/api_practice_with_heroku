@@ -58,7 +58,7 @@ def create_post():
 @application.route('/get_one_post', methods=["GET", "POST"])
 def get_one_post():
     post_name = request.args.get('post_name')
-    posts = session.query(Posts).filter(or_(Posts.post_name == post_name)).first()
+    posts = session.query(Posts).filter(or_(Posts.post_name == post_name))
     rows = posts.statement.execute().fetchall()
     for row in rows:
         print(row)
