@@ -58,10 +58,9 @@ def create_post():
 @application.route('/get_one_post', methods=["GET", "POST"])
 def get_one_post():
     post_name = request.args.get('post_name')
-    posts = session.query(Posts).filter(or_(Posts.post_name == post_name))
-    rows = posts.statement.execute().fetchall()
-    for row in rows:
-        print(row)
+    posts = session.query(Posts).filter(or_(Posts.post_name == post_name)).all()
+    for u in posts:
+        print(u.__dict__)
 
     if post is not None:
         posts = list(post)
