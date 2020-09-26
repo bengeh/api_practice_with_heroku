@@ -53,7 +53,7 @@ def create_post():
 
 @application.route('/get_one_post', methods=["GET", "POST"])
 def get_one_post():
-    post_name = requests.args.get('post_name')
+    post_name = request.args.get('post_name')
     post = session.query(Posts).filter(or_(Posts.post_name == postname)).first()
     if post is not None:
         return post
