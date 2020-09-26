@@ -58,14 +58,11 @@ def create_post():
 @application.route('/get_one_post', methods=["GET", "POST"])
 def get_one_post():
     post_name = request.args.get('post_name')
-    post = session.query(Posts).filter(or_(Posts.post_name == post_name)).first()
-    print("got the post...")
-    print(post)
-    for k,v in post:
-        print("key...")
-        print(k)
-        print("value...")
-        print(v)
+    posts = session.query(Posts).filter(or_(Posts.post_name == post_name)).first()
+    rows = posts.statement.execute().fetchall()
+    for row in rows:
+        print row
+
     if post is not None:
         posts = list(post)
         data = {'post': posts}
