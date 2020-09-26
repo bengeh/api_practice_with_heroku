@@ -26,12 +26,10 @@ def index():
 @application.route('/register', methods=["GET", "POST"])
 def register():
     username = request.args.get('username')
-    email = request.args.get('email')
     password = request.args.get('password')
     password_hash = generate_password_hash(password)
     account = Table('account', metadata, autoload=True)
-    engine.execute(account.insert(), username=username,
-                   email=email, password=password_hash)
+    engine.execute(account.insert(), username=username, password=password_hash)
     return jsonify({'user_added': True})
 
 
@@ -44,3 +42,25 @@ def sign_in():
     if user is not None and check_password_hash(user.password, password_entered):
         return jsonify({'signed_in': True})
     return jsonify({'signed_in': False})
+
+@application.route('create_post', methods=["GET", "POST"])
+def create_post():
+    post_title = request.args.get("title")
+    post_text = request.args.get("post_text")
+    post = Table('posts', metadata, autoload=True)
+    engine.execute(post.insert(), post_name=post_title, post_text=post_text)
+    return jsonify({'post_added': True})
+
+@application.route('get_one_post', methods=["GET", "POST"])
+def get_one_post():
+    post_name = requests.args.get('post_name')
+    post = session.query(Posts).filter(or_(Posts.post_name == postname)).first()
+    if post is not None:
+        return post
+    else:
+        return jsonify({"error": true})
+
+# @application.route('get_all_post', methods=["GET", "POST"])
+# def get_all_post():
+#     post_by = request.args.get('username')
+#     posts = session.query(Posts).filter(or_(post_name))
