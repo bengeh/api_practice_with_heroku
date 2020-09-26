@@ -62,7 +62,8 @@ def get_one_post():
     print("got the post...")
     print(post)
     if post is not None:
-        data = {'post': post}
+        posts = list(post)
+        data = {'post': posts}
         resp = Response(json.dumps(data), status=200, mimetype="application/json")
         return resp
     else:
