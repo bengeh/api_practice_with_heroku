@@ -43,7 +43,7 @@ def sign_in():
         return jsonify({'signed_in': True})
     return jsonify({'signed_in': False})
 
-@application.route('create_post', methods=["GET", "POST"])
+@application.route('/create_post', methods=["GET", "POST"])
 def create_post():
     post_title = request.args.get("title")
     post_text = request.args.get("post_text")
@@ -51,7 +51,7 @@ def create_post():
     engine.execute(post.insert(), post_name=post_title, post_text=post_text)
     return jsonify({'post_added': True})
 
-@application.route('get_one_post', methods=["GET", "POST"])
+@application.route('/get_one_post', methods=["GET", "POST"])
 def get_one_post():
     post_name = requests.args.get('post_name')
     post = session.query(Posts).filter(or_(Posts.post_name == postname)).first()
