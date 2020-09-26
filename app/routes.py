@@ -61,7 +61,7 @@ def get_one_post():
     posts = session.query(Posts).filter(or_(Posts.post_name == post_name)).first()
     rows = posts.statement.execute().fetchall()
     for row in rows:
-        print row
+        print(row)
 
     if post is not None:
         posts = list(post)
