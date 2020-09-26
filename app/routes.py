@@ -62,6 +62,12 @@ def get_one_post():
     if posts is not None:
         for u in posts:
             print(u.__dict__.get("post_name"))
+            return jsonify({
+                "user_id": u.__dict__.get("user_id"),
+                "post_name": u.__dict__.get("post_name"),
+                "post_text": u.__dict__.get("post_text"),
+                "post_created_time": u.__dict__.get("post_created")
+            })
 
     else:
         return jsonify({"error": True})
