@@ -62,8 +62,8 @@ def get_one_post():
     print("got the post...")
     print(post)
     if post is not None:
-        postRes = json.dumps(post)
-        return postRes
+        
+        return jsonify(post)
     else:
         return jsonify({"error": True})
 
