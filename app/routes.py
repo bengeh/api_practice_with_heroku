@@ -61,6 +61,11 @@ def get_one_post():
     post = session.query(Posts).filter(or_(Posts.post_name == post_name)).first()
     print("got the post...")
     print(post)
+    for k,v in post:
+        print("key...")
+        print(k)
+        print("value...")
+        print(v)
     if post is not None:
         posts = list(post)
         data = {'post': posts}
