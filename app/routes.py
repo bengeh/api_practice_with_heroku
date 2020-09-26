@@ -55,18 +55,14 @@ def create_post():
     engine.execute(post.insert(), post_name=post_title, post_text=post_text)
     return jsonify({'post_added': True})
 
-@application.route('/get_one_post', methods=["GET", "POST"])
+@application.route('/get_post', methods=["GET", "POST"])
 def get_one_post():
     post_name = request.args.get('post_name')
     posts = session.query(Posts).filter(or_(Posts.post_name == post_name)).all()
-    for u in posts:
-        print(u.__dict__)
+    if posts is not None:
+        for u in posts:
+            print(u.__dict__.get("post_name"))
 
-    if post is not None:
-        posts = list(post)
-        data = {'post': posts}
-        resp = Response(json.dumps(data), status=200, mimetype="application/json")
-        return resp
     else:
         return jsonify({"error": True})
 
