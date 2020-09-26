@@ -63,7 +63,7 @@ def get_one_post():
     if post is not None:
         return post
     else:
-        return jsonify({"error": true})
+        return jsonify({"error": True})
 
 # @application.route('get_all_post', methods=["GET", "POST"])
 # def get_all_post():
