@@ -9,9 +9,6 @@ from sqlalchemy import create_engine
 application = Flask(__name__)
 application.config.from_object(Config)
 
-print("inside init")
-print(application.config['SQLALCHEMY_DATABASE_URI'])
-
 DB_URI = application.config['SQLALCHEMY_DATABASE_URI']
 engine = create_engine(DB_URI)
 

@@ -12,14 +12,9 @@ from flask import make_response
 CORS(application, support_credentials=True)
 Base = automap_base()
 Base.prepare(engine, reflect=True)
-print("inside routes....")
-print(Base)
-print(Base.classes)
 Accounts = Base.classes.accounts
 Posts = Base.classes.posts
 Comments = Base.classes.comments
-print(Accounts)
-print(Posts)
 session = Session(engine)
 metadata = MetaData(engine)
 
@@ -42,15 +37,12 @@ def register():
 
 @application.route('/sign_in', methods=["GET", "POST"])
 def sign_in():
-    print("signing in....")
     username_entered = request.args.get('username')
     password_entered = request.args.get('password')
     user = session.query(Accounts).filter(or_(Accounts.user_name == username_entered)
                                           ).first()
     if user is not None and check_password_hash(user.password, password_entered):
-        print("user is not none...")
         return jsonify({'signed_in': True})
-    print("signed in false...")
     return make_response(jsonify({'signed_in': False}), 403)
 
 @application.route('/create_post', methods=["GET", "POST"])
@@ -72,7 +64,6 @@ def get_one_post():
         posts = session.query(Posts).filter(or_(Posts.post_title == post_name)).all()
         if posts is not None:
             for u in posts:
-                print(u.__dict__.get("post_title"))
                 return jsonify({
                     "user_name": u.__dict__.get("user_name"),
                     "post_title": u.__dict__.get("post_title"),
@@ -121,9 +112,6 @@ def get_comments():
             comments = []
             for u in posts:
                 commentsMap = {}
-                print(u.__dict__.get("post_title"))
-                print(u.__dict__.get("comment_text"))
-                print(u.__dict__.get("user_name"))
                 commentsMap["user_name"] = u.__dict__.get("user_name")
                 commentsMap["comment_text"] = u.__dict__.get("comment_text")
                 comments.append(commentsMap)
